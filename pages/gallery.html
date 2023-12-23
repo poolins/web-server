@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple gallery</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            flex-direction: column;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            color: #000; 
+            font-size: 2.5em; 
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        #image-container {
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        #next-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 0 10px;
+            border-radius: 5px;
+        }
+
+        #prev-btn {
+          position: absolute;
+          top: 50%;
+          right: 103%;
+          transform: translateY(-50%);
+          font-size: 20px;
+          cursor: pointer;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          padding: 10px 15px;
+          border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Gallery</h1>
+
+    <div id="image-container">
+        <button id="prev-btn" onclick="prevImage()">&lt;</button>
+        <img id="current-image" src="image1.jpg" alt="Image 1">
+        <button id="next-btn" onclick="nextImage()">&gt;</button>
+    </div>
+
+    <script>
+        var images = ["image1.jpg", "image2.jpg", "image3.jpg"];
+        var currentIndex = 0;
+        var imgElement = document.getElementById("current-image");
+
+        function showImage(index) {
+            imgElement.src = images[index];
+            currentIndex = index;
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage(currentIndex);
+        }
+    </script>
+</body>
+</html>
