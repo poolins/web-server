@@ -135,7 +135,12 @@ void send_request(char* url_path, int sock){
 
     if (strcmp(url_path, "/") == 0) {
         sprintf(file_path, "%s%s", STORAGE_PATH, START_PAGE);
-        send_file(sock, file_path, "html", "text");
+        if (access(file_path, F_OK) != -1) {
+            send_file(sock, file_path, "html", "text");
+        }
+        else {
+            send_404(sock);
+        }
     } else {
         sprintf(file_path, "%s%s", STORAGE_PATH, url_path);
 
@@ -146,9 +151,9 @@ void send_request(char* url_path, int sock){
 
         if (strcmp(dot, "img") == 0 || strcmp(dot, "jpg") == 0 || strcmp(dot, "jpeg") == 0) {
             type = "image";
-        } else {
+           } else {
             type = "text";
-        }
+           }
         send_file(sock, file_path, dot, type);
         } else {
             send_404(sock);
